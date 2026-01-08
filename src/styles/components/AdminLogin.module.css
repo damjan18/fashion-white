@@ -1,0 +1,73 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-light-gray);
+  padding: var(--spacing-md);
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  background: var(--color-white);
+  padding: var(--spacing-2xl);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--color-black);
+  margin-bottom: var(--spacing-sm);
+}
+
+.adminBadge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-white);
+  background: var(--color-black);
+  padding: 4px 12px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.field label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-medium-gray);
+}
+
+.field input {
+  padding: 14px 16px;
+  border: 1px solid var(--color-gray);
+  font-size: 14px;
+  transition: border-color var(--transition-fast);
+  outline: none;
+}
+
+.field input:focus {
+  border-color: var(--color-black);
+}

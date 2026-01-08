@@ -1,0 +1,129 @@
+.page {
+  padding-top: calc(var(--nav-height) + var(--spacing-2xl));
+  min-height: 100vh;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--spacing-2xl) var(--spacing-4xl);
+}
+
+.header {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 300;
+  letter-spacing: 6px;
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Category Navigation */
+.categoryNav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-light-gray);
+}
+
+.categoryLink {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-medium-gray);
+  transition: all var(--transition-fast);
+  border-bottom: 2px solid transparent;
+}
+
+.categoryLink:hover {
+  color: var(--color-black);
+}
+
+.categoryLink.active {
+  color: var(--color-black);
+  border-bottom-color: var(--color-black);
+}
+
+/* Loading & Empty States */
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-4xl);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--color-light-gray);
+  border-top-color: var(--color-black);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.empty {
+  text-align: center;
+  padding: var(--spacing-4xl);
+  color: var(--color-medium-gray);
+}
+
+.resultsCount {
+  font-size: 12px;
+  color: var(--color-medium-gray);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Products Grid */
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-xl);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .productsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .productsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .categoryNav {
+    gap: 0;
+  }
+  
+  .categoryLink {
+    padding: var(--spacing-sm) var(--spacing-sm);
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 0 var(--spacing-md) var(--spacing-2xl);
+  }
+  
+  .title {
+    font-size: 28px;
+  }
+  
+  .productsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+}

@@ -1,0 +1,177 @@
+.container {
+  margin-bottom: var(--spacing-xl);
+}
+
+.mobileToggle {
+  display: none;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-gray);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-black);
+  background: var(--color-white);
+}
+
+.mobileToggle svg:last-child {
+  margin-left: auto;
+  transition: transform var(--transition-fast);
+}
+
+.mobileToggle .rotated {
+  transform: rotate(180deg);
+}
+
+.badge {
+  width: 8px;
+  height: 8px;
+  background: var(--color-black);
+  border-radius: var(--radius-full);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+  align-items: flex-end;
+}
+
+.filterGroup {
+  min-width: 160px;
+}
+
+.label {
+  display: block;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-medium-gray);
+  margin-bottom: var(--spacing-sm);
+}
+
+.select {
+  width: 100%;
+  padding: 10px 32px 10px 12px;
+  border: 1px solid var(--color-gray);
+  background: var(--color-white);
+  font-size: 13px;
+  color: var(--color-black);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  transition: border-color var(--transition-fast);
+}
+
+.select:hover,
+.select:focus {
+  border-color: var(--color-black);
+  outline: none;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 12px;
+  color: var(--color-dark-gray);
+  cursor: pointer;
+  user-select: none;
+  padding: 10px 0;
+}
+
+.checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--color-gray);
+  background: var(--color-white);
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.checkbox:hover .checkmark {
+  border-color: var(--color-black);
+}
+
+.checkbox input:checked ~ .checkmark {
+  background: var(--color-black);
+  border-color: var(--color-black);
+}
+
+.checkmark::after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 4px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox input:checked ~ .checkmark::after {
+  display: block;
+}
+
+.clearButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 10px 14px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-medium-gray);
+  border: 1px solid var(--color-gray);
+  background: var(--color-white);
+  transition: all var(--transition-fast);
+}
+
+.clearButton:hover {
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mobileToggle {
+    display: flex;
+  }
+  
+  .filters {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-gray);
+    border-top: none;
+    background: var(--color-white);
+  }
+  
+  .filters.open {
+    display: flex;
+  }
+  
+  .filterGroup {
+    min-width: auto;
+    width: 100%;
+  }
+}
