@@ -238,7 +238,7 @@
   .header,
   .footer {
     padding: var(--spacing-md);
-    padding-bottom: calc(30px + env(safe-area-inset-bottom));
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
   }
 
   .items {
