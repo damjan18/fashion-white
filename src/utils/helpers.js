@@ -1,32 +1,32 @@
 // Format price with currency
-export function formatPrice(price, currency = '€') {
+export function formatPrice(price, currency = "€") {
   return `${currency}${price.toFixed(2)}`;
 }
 
 // Format date
-export function formatDate(dateString, locale = 'sr-Latn-ME') {
+export function formatDate(dateString, locale = "sr-Latn-ME") {
   const date = new Date(dateString);
   return date.toLocaleDateString(locale, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 }
 
 // Format date and time
-export function formatDateTime(dateString, locale = 'sr-Latn-ME') {
+export function formatDateTime(dateString, locale = "sr-Latn-ME") {
   const date = new Date(dateString);
   return date.toLocaleString(locale, {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
   });
 }
 
 // Generate SKU
-export function generateSKU(productName, size, brandName = '') {
+export function generateSKU(productName, size, brandName = "") {
   const brand = brandName.substring(0, 3).toUpperCase();
   const product = productName.substring(0, 3).toUpperCase();
   const sizeCode = size.toUpperCase();
@@ -40,11 +40,11 @@ export function slugify(text) {
     .toString()
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w\-]+/g, '')
-    .replace(/\-\-+/g, '-')
-    .replace(/^-+/, '')
-    .replace(/-+$/, '');
+    .replace(/\s+/g, "-")
+    .replace(/[^\w\-]+/g, "")
+    .replace(/\-\-+/g, "-")
+    .replace(/^-+/, "")
+    .replace(/-+$/, "");
 }
 
 // Calculate total stock for a product
@@ -61,24 +61,22 @@ export function hasStock(variants) {
 // Get available sizes (with stock > 0)
 export function getAvailableSizes(variants) {
   if (!variants || !Array.isArray(variants)) return [];
-  return variants
-    .filter(v => v.quantity > 0)
-    .map(v => v.size);
+  return variants.filter((v) => v.quantity > 0).map((v) => v.size);
 }
 
 // Sort products
 export function sortProducts(products, sortBy) {
   const sorted = [...products];
-  
+
   switch (sortBy) {
-    case 'price-low-high':
+    case "price-low-high":
       return sorted.sort((a, b) => a.base_price - b.base_price);
-    case 'price-high-low':
+    case "price-high-low":
       return sorted.sort((a, b) => b.base_price - a.base_price);
-    case 'newest':
+    case "newest":
     default:
-      return sorted.sort((a, b) => 
-        new Date(b.created_at) - new Date(a.created_at)
+      return sorted.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at),
       );
   }
 }
@@ -97,11 +95,11 @@ export function debounce(func, wait) {
 }
 
 // Validate phone number (Montenegro format)
-export function validatePhone(phone) {
-  const cleaned = phone.replace(/\D/g, '');
-  // Montenegro numbers: +382 XX XXX XXX or 0XX XXX XXX
-  return cleaned.length >= 8 && cleaned.length <= 12;
-}
+export const validatePhone = (phone) => {
+  // Remove all non-digits and check if at least 6 digits remain
+  const digits = phone.replace(/\D/g, "");
+  return digits.length >= 6;
+};
 
 // Validate email
 export function validateEmail(email) {
@@ -111,18 +109,18 @@ export function validateEmail(email) {
 
 // Truncate text
 export function truncate(text, length = 100) {
-  if (!text) return '';
+  if (!text) return "";
   if (text.length <= length) return text;
-  return text.substring(0, length) + '...';
+  return text.substring(0, length) + "...";
 }
 
 // Get initials from name
 export function getInitials(name) {
-  if (!name) return '';
+  if (!name) return "";
   return name
-    .split(' ')
-    .map(n => n[0])
-    .join('')
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
     .toUpperCase()
     .substring(0, 2);
 }
