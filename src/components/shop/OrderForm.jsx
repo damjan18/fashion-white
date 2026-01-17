@@ -3,7 +3,6 @@ import { ArrowLeft, CheckCircle } from "lucide-react";
 import { useLanguage } from "@context/LanguageContext";
 import { useCart } from "@context/CartContext";
 import { createOrder } from "@lib/supabase";
-import { sendOrderNotification } from "@lib/email";
 import { formatPrice, validatePhone } from "@utils/helpers";
 import Button from "@components/common/Button";
 import toast from "react-hot-toast";
@@ -82,11 +81,6 @@ export default function OrderForm({ onBack, onSuccess }) {
 
       // Create order in database
       const order = await createOrder(orderData, items);
-
-      // Send email notification
-      sendOrderNotification(order, items).catch((err) =>
-        console.error("Email failed:", err),
-      );
 
       setSuccess(true);
 
