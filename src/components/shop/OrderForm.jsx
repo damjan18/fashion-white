@@ -92,7 +92,8 @@ export default function OrderForm({ onBack, onSuccess }) {
       }, 3000);
     } catch (error) {
       console.error("Order error:", error);
-      toast.error(t("error"));
+      alert(JSON.stringify(error));
+      //toast.error(t("error"));
     } finally {
       setLoading(false);
     }
