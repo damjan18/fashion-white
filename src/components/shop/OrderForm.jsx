@@ -1,24 +1,24 @@
-import { useState } from 'react';
-import { ArrowLeft, CheckCircle } from 'lucide-react';
-import { useLanguage } from '@context/LanguageContext';
-import { useCart } from '@context/CartContext';
-import { createOrder } from '@lib/supabase';
-import { sendOrderNotification } from '@lib/email';
-import { formatPrice, validatePhone } from '@utils/helpers';
-import Button from '@components/common/Button';
-import toast from 'react-hot-toast';
-import styles from '@styles/components/OrderForm.module.css';
+import { useState } from "react";
+import { ArrowLeft, CheckCircle } from "lucide-react";
+import { useLanguage } from "@context/LanguageContext";
+import { useCart } from "@context/CartContext";
+import { createOrder } from "@lib/supabase";
+import { sendOrderNotification } from "@lib/email";
+import { formatPrice, validatePhone } from "@utils/helpers";
+import Button from "@components/common/Button";
+import toast from "react-hot-toast";
+import styles from "@styles/components/OrderForm.module.css";
 
 export default function OrderForm({ onBack, onSuccess }) {
   const { t, language } = useLanguage();
   const { cart, totalPrice, clearCart, closeCart } = useCart();
-  
+
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    address: '',
-    city: '',
-    note: '',
+    name: "",
+    phone: "",
+    address: "",
+    city: "",
+    note: "",
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -26,15 +26,15 @@ export default function OrderForm({ onBack, onSuccess }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: null }));
+      setErrors((prev) => ({ ...prev, [name]: null }));
     }
   };
 
   const validate = () => {
     const newErrors = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = true;
     }
@@ -47,16 +47,16 @@ export default function OrderForm({ onBack, onSuccess }) {
     if (!formData.city.trim()) {
       newErrors.city = true;
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validate()) return;
-    
+
     setLoading(true);
 
     try {
@@ -68,11 +68,11 @@ export default function OrderForm({ onBack, onSuccess }) {
         city: formData.city,
         note: formData.note || null,
         total: totalPrice,
-        status: 'new',
+        status: "new",
       };
 
       // Prepare order items
-      const items = cart.map(item => ({
+      const items = cart.map((item) => ({
         variantId: item.variantId,
         quantity: item.quantity,
         price: item.price,
@@ -84,20 +84,21 @@ export default function OrderForm({ onBack, onSuccess }) {
       const order = await createOrder(orderData, items);
 
       // Send email notification
-      await sendOrderNotification(order, items);
+      sendOrderNotification(order, items).catch((err) =>
+        console.error("Email failed:", err),
+      );
 
       setSuccess(true);
-      
+
       // Clear cart and close after delay
       setTimeout(() => {
         clearCart();
         closeCart();
         onSuccess?.();
       }, 3000);
-
     } catch (error) {
-      console.error('Order error:', error);
-      toast.error(t('error'));
+      console.error("Order error:", error);
+      toast.error(t("error"));
     } finally {
       setLoading(false);
     }
@@ -109,8 +110,8 @@ export default function OrderForm({ onBack, onSuccess }) {
         <div className={styles.successIcon}>
           <CheckCircle size={48} />
         </div>
-        <h3>{t('orderSuccess')}</h3>
-        <p>{t('orderSuccessMessage')}</p>
+        <h3>{t("orderSuccess")}</h3>
+        <p>{t("orderSuccessMessage")}</p>
       </div>
     );
   }
@@ -119,20 +120,20 @@ export default function OrderForm({ onBack, onSuccess }) {
     <div className={styles.container}>
       <button className={styles.backButton} onClick={onBack}>
         <ArrowLeft size={18} />
-        {t('yourCart')}
+        {t("yourCart")}
       </button>
 
-      <h3 className={styles.title}>{t('orderDetails')}</h3>
+      <h3 className={styles.title}>{t("orderDetails")}</h3>
 
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.field}>
           <input
             type="text"
             name="name"
-            placeholder={`${t('fullName')} *`}
+            placeholder={`${t("fullName")} *`}
             value={formData.name}
             onChange={handleChange}
-            className={errors.name ? styles.error : ''}
+            className={errors.name ? styles.error : ""}
           />
         </div>
 
@@ -140,10 +141,10 @@ export default function OrderForm({ onBack, onSuccess }) {
           <input
             type="tel"
             name="phone"
-            placeholder={`${t('phone')} *`}
+            placeholder={`${t("phone")} *`}
             value={formData.phone}
             onChange={handleChange}
-            className={errors.phone ? styles.error : ''}
+            className={errors.phone ? styles.error : ""}
           />
         </div>
 
@@ -151,38 +152,38 @@ export default function OrderForm({ onBack, onSuccess }) {
           <input
             type="text"
             name="city"
-            placeholder={`${t('city')} *`}
+            placeholder={`${t("city")} *`}
             value={formData.city}
             onChange={handleChange}
-            className={errors.city ? styles.error : ''}
+            className={errors.city ? styles.error : ""}
           />
         </div>
 
         <div className={styles.field}>
           <textarea
             name="address"
-            placeholder={`${t('address')} *`}
+            placeholder={`${t("address")} *`}
             rows={2}
             value={formData.address}
             onChange={handleChange}
-            className={errors.address ? styles.error : ''}
+            className={errors.address ? styles.error : ""}
           />
         </div>
 
         <div className={styles.field}>
           <textarea
             name="note"
-            placeholder={t('note')}
+            placeholder={t("note")}
             rows={2}
             value={formData.note}
             onChange={handleChange}
           />
         </div>
 
-        <p className={styles.notice}>{t('paymentOnDelivery')}</p>
+        <p className={styles.notice}>{t("paymentOnDelivery")}</p>
 
         <div className={styles.summary}>
-          <span>{t('total')}</span>
+          <span>{t("total")}</span>
           <span className={styles.totalPrice}>{formatPrice(totalPrice)}</span>
         </div>
 
@@ -193,7 +194,7 @@ export default function OrderForm({ onBack, onSuccess }) {
           fullWidth
           loading={loading}
         >
-          {t('placeOrder')}
+          {t("placeOrder")}
         </Button>
       </form>
     </div>

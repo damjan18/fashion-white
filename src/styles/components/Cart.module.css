@@ -10,8 +10,12 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .sidebar {
@@ -30,8 +34,12 @@
 }
 
 @keyframes slideIn {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .header {
@@ -226,12 +234,13 @@
   .sidebar {
     width: 100vw;
   }
-  
+
   .header,
   .footer {
     padding: var(--spacing-md);
+    padding-bottom: calc(30px + env(safe-area-inset-bottom));
   }
-  
+
   .items {
     padding: var(--spacing-md);
   }
